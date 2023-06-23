@@ -1,8 +1,8 @@
-#' Given a predetermined t0 and eta, calculate t0-year potential survival probability based on the (S)IPS estimator.
+#' Given a predetermined t0 and eta, calculate t0-year potential survival probability based on the (S)IWKME estimator.
 #'
-#' @title The (S)IPS estimator.
+#' @title The (S)IWKME estimator.
 #' @param eta The parameters of the regime.
-#' @param datalist A list used to calculate the (S)IPS estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}. \code{\link[otrKM]{Fps.IPS}} can produce \code{ps} by positing logistic model.
+#' @param datalist A list used to calculate the (S)IWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}. \code{\link[otrKM]{Fps.IWKME}} can produce \code{ps} by positing logistic model.
 #' @param ps A list including the probability of receiving treatment given baseline covariates named \code{fal}.
 #' @param t0 A predetermined time.
 #' @param smooth A logic variable indicating wether a smoothed estimator should be used.
@@ -29,14 +29,14 @@
 #'               l=cbind(simulation$Covariate1,simulation$Covariate2))
 #' 
 #' # calculate ps
-#' ps=Fps.IPS(datalist)
+#' ps=Fps.IWKME(datalist)
 #' 
 #' # predetermined t0 and eta
 #' t0=5
 #' eta=c(1,2,3)
 #' 
-#' IPS(eta, datalist, ps, t0, smooth=TRUE)
-IPS <- function(eta, datalist, ps, t0, smooth=TRUE) {
+#' IWKME(eta, datalist, ps, t0, smooth=TRUE)
+IWKME <- function(eta, datalist, ps, t0, smooth=TRUE) {
   # extract variable from datalist
   z <- datalist$z
   a <- datalist$a

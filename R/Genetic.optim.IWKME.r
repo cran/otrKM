@@ -1,8 +1,8 @@
-#' Given a predetermined t0, estimate the optimal treatment regime by maximizing t0-year survival probability based on the (S)IPS estimator.
+#' Given a predetermined t0, estimate the optimal treatment regime by maximizing t0-year survival probability based on the (S)IWKME estimator.
 #'
-#' @title The optimal treatment regime based on the (S)IPS estimator.
-#' @param datalist A list used to calculate the (S)IPS estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.
-#' @param ps A list including the probability of receiving treatment given baseline covariates named \code{fal}. \code{\link[otrKM]{Fps.IPS}} can produce \code{ps} by positing logistic model.
+#' @title The optimal treatment regime based on the (S)IWKME estimator.
+#' @param datalist A list used to calculate the (S)IWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.
+#' @param ps A list including the probability of receiving treatment given baseline covariates named \code{fal}. \code{\link[otrKM]{Fps.IWKME}} can produce \code{ps} by positing logistic model.
 #' @param t0 A predetermined time.
 #' @param smooth A logic variable indicating wether a smoothed version should be used.
 #'
@@ -29,12 +29,12 @@
 #' t0=5
 #' 
 #' # calculate ps
-#' ps=Fps.IPS(datalist)
+#' ps=Fps.IWKME(datalist)
 #' 
-#' Genetic.optim.IPS(datalist, ps, t0, smooth=TRUE)
-Genetic.optim.IPS <- function(datalist, ps, t0, smooth=TRUE) {
+#' Genetic.optim.IWKME(datalist, ps, t0, smooth=TRUE)
+Genetic.optim.IWKME <- function(datalist, ps, t0, smooth=TRUE) {
   Neta=ncol(datalist$l)+1
-  fn <- IPS
+  fn <- IWKME
   temp <- genoud(
     fn = fn, datalist = datalist, ps = ps, t0 = t0, smooth = smooth,
     nvars = Neta,

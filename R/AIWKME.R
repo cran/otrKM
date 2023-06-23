@@ -1,10 +1,10 @@
-#' Given a predetermined t0 and eta, calculate t0-year potential survival probability based on the (S)AIPS estimator.
+#' Given a predetermined t0 and eta, calculate t0-year potential survival probability based on the (S)AIWKME estimator.
 #' 
-#' @title The (S)AIPS estimator.
+#' @title The (S)AIWKME estimator.
 #' @param eta The parameters of the regime.
-#' @param datalist A list used to calculate the (S)AIPS estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.
-#' @param ps A list including the probability of receiving treatment given baseline covariates named \code{fal}. \code{\link[otrKM]{Fps.AIPS}} can produce \code{ps} by positing logistic model.
-#' @param prep A list including the augmented terms in the numerator with treatment all to 1 named \code{gamma.num.1} and all to 0 named \code{gamma.num.0} and in the denominator with treatment all to 1 named \code{gamma.den.1} and all to 0 \code{named gamma.den.0}; \code{gamma.num.1} and the others are matrix with ordered observed time as rows and patients as columns. \code{\link[otrKM]{Fprep.AIPS}} can produce \code{prep} by positing Cox proportional hazards model.
+#' @param datalist A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.
+#' @param ps A list including the probability of receiving treatment given baseline covariates named \code{fal}. \code{\link[otrKM]{Fps.AIWKME}} can produce \code{ps} by positing logistic model.
+#' @param prep A list including the augmented terms in the numerator with treatment all to 1 named \code{gamma.num.1} and all to 0 named \code{gamma.num.0} and in the denominator with treatment all to 1 named \code{gamma.den.1} and all to 0 \code{named gamma.den.0}; \code{gamma.num.1} and the others are matrix with ordered observed time as rows and patients as columns. \code{\link[otrKM]{Fprep.AIWKME}} can produce \code{prep} by positing Cox proportional hazards model.
 #' @param t0 A predetermined time. 
 #' @param smooth A logic variable indicating wether a smoothed estimator should be used.
 #'
@@ -33,11 +33,11 @@
 #' eta=c(1,2,3)
 #' 
 #' # calculate ps and prep
-#' ps=Fps.AIPS(datalist)
-#' prep=Fprep.AIPS(datalist, t0)
+#' ps=Fps.AIWKME(datalist)
+#' prep=Fprep.AIWKME(datalist, t0)
 #' 
-#' AIPS(eta, datalist, ps, prep, t0, smooth=TRUE)
-AIPS <- function(eta, datalist, ps, prep, t0, smooth=TRUE) {
+#' AIWKME(eta, datalist, ps, prep, t0, smooth=TRUE)
+AIWKME <- function(eta, datalist, ps, prep, t0, smooth=TRUE) {
   # extract variable from datalist
   a <- datalist$a
   obs.t <- datalist$obs.t
@@ -60,8 +60,8 @@ AIPS <- function(eta, datalist, ps, prep, t0, smooth=TRUE) {
   }
 
   # weight
-  w0 <- (1 - a) / sapply(1 - fal, clipp)
-  w1 <- a / sapply(fal, clipp)
+  w0 <- (1 - a) / sapply(fal*a+(1 - fal)*(1-a), clipp)
+  w1 <- a / sapply(fal*a+(1-fal)*(1-a), clipp)
 
   delta.rank <- delta[order(obs.t)]
   w <- (w1 * regime + w0 * (1 - regime))[order(obs.t)]
