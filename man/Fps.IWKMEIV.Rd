@@ -21,5 +21,5 @@ Logistic regression for observed treatment and instrument used for the (S)IWKMEI
 More details can be found in references, \code{\link[otrKM]{IWKMEIV}}, and \code{\link[otrKM]{Genetic.optim.IWKMEIV}}.
 }
 \references{
-{Xia, J., Zhan, Z., Zhang, J. (2022) An anti-confounding method for estimating optimal regime in a survival context using instrumental variable. Under Review.}
+{Xia, J., Zhan, Z., Zhang, J. (2022) Estimating optimal treatment regime in survival contexts using an instrumental variable. Under Review.}
 }

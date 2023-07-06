@@ -8,7 +8,7 @@ clipp <- function(x) {
 }
 
 #' Logistic regression for observed treatment used for the (S)IWKME estimator.
-#' @param datalist A list used to calculate the (S)IWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.
+#' @param datalist A list used to calculate the (S)IWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}. Notice that all the data in the datalist should be ordered by observed time.
 #' @import stats
 #' @return A list including the probability of receiving treatment given baseline covariates named \code{fal}.
 #' @export
@@ -26,7 +26,7 @@ Fps.IWKME <- function(datalist) {
 }
 
 #' Logistic regression for observed treatment used for the (S)AIWKME estimator.
-#' @param datalist A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.
+#' @param datalist A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}. Notice that all the data in the datalist should be ordered by observed time.
 #' @import stats
 #' @return A list including the probability of receiving treatment given baseline covariates named \code{fal}.
 #' @export
@@ -44,7 +44,7 @@ Fps.AIWKME <- function(datalist) {
 }
 
 #' Cox proportional hazards model for eta-free terms in the (S)AIWKME estimator.
-#' @param datalist A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.
+#' @param datalist A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}. Notice that all the data in the datalist should be ordered by observed time.
 #' @param t0 A predetermined t.
 #' @import stats
 #' @import survival
@@ -106,7 +106,7 @@ Fprep.AIWKME <- function(datalist, t0) {
 #' @return A list including the probability of receiving instrument given baseline covariates named \code{fzl}, the difference between fal1 and fal0 named \code{deltal}, where fal0 denotes the probability of receiving treatment given baseline covariates and instrument equaling 0, and fal1 denotes the probability of receiving treatment given baseline covariates and instrument equaling 1, and the censoring survival function given baseline covariates and treatment 1 or 0 named \code{surv.C.1} or \code{surv.C.0}.
 #' @details More details can be found in references, \code{\link[otrKM]{IWKMEIV}}, and \code{\link[otrKM]{Genetic.optim.IWKMEIV}}.
 #' @references 
-#' {Xia, J., Zhan, Z., Zhang, J. (2022) An anti-confounding method for estimating optimal regime in a survival context using instrumental variable. Under Review.}
+#' {Xia, J., Zhan, Z., Zhang, J. (2022) Estimating optimal treatment regime in survival contexts using an instrumental variable. Under Review.}
 #' @export
 Fps.IWKMEIV <- function(datalist, t0) {
   l <- datalist$l
@@ -156,7 +156,7 @@ Fps.IWKMEIV <- function(datalist, t0) {
 #' @export
 #' @details More details can be found in references, \code{\link[otrKM]{DRKMEIV}}, and \code{\link[otrKM]{Genetic.optim.DRKMEIV}}.
 #' @references 
-#' {Xia, J., Zhan, Z., Zhang, J. (2022) An anti-confounding method for estimating optimal regime in a survival context using instrumental variable. Under Review.}
+#' {Xia, J., Zhan, Z., Zhang, J. (2022) Estimating optimal treatment regime in survival contexts using an instrumental variable. Under Review.}
 Fps.DRKMEIV <- function(datalist, t0) {
   l <- datalist$l
   z <- datalist$z
@@ -203,13 +203,12 @@ Fps.DRKMEIV <- function(datalist, t0) {
 #' 
 #' @import stats
 #' @import survival
-#' @return A list including estimates \eqn{\hat{\gamma}_1(\boldsymbol{L};s)}{hat.gamma.1(L;s)} with treatment all to 1 named \code{gamma.num.1} and all to 0 named \code{gamma.num.0}, \eqn{\hat{\gamma}_1'(\boldsymbol{L};s)}{hat.gamma.1'(L;s)} with treatment all to 1 named \code{gammaa.num.1} and all to 0 named \code{gammaa.num.0}, \eqn{\hat{\gamma}_2(\boldsymbol{L};s)}{hat.gamma.2(L;s)} with treatment all to 1 named \code{gamma.den.1} and all to 0 named \code{gamma.den.0}, and \eqn{\hat{\gamma}_2'(\boldsymbol{L};s)}{hat.gamma.2'(L;s)} with treatment all to 1 named \code{gammaa.den.1} and all to 0 named \code{gammaa.den.0}; \code{gamma.num.1} and the others are matrix with ordered observed time as rows and patients as columns. There are also estimates for the last term of the (S)IVE-DR estimator. More details can be found in references.
-#' 
+#' @return A list including estimates \eqn{\hat{\gamma}_1(\boldsymbol{L};s)}{hat.gamma.1(L;s)} with treatment all to 1 named \code{gamma.num.1} and all to 0 named \code{gamma.num.0}, \eqn{\hat{\gamma}_1'(\boldsymbol{L};s)}{hat.gamma.1'(L;s)} with treatment all to 1 named \code{gammaa.num.1} and all to 0 named \code{gammaa.num.0}, \eqn{\hat{\gamma}_2(\boldsymbol{L};s)}{hat.gamma.2(L;s)} with treatment all to 1 named \code{gamma.den.1} and all to 0 named \code{gamma.den.0}, and \eqn{\hat{\gamma}_2'(\boldsymbol{L};s)}{hat.gamma.2'(L;s)} with treatment all to 1 named \code{gammaa.den.1} and all to 0 named \code{gammaa.den.0}; \code{gamma.num.1} and the others are matrix with ordered observed time as rows and patients as columns. There are also estimates for the last term of the (S)DRIWKMEIV estimator. More details can be found in references.
 #' 
 #' @export
 #' @details More details can be found in references, \code{\link[otrKM]{DRKMEIV}}, and \code{\link[otrKM]{Genetic.optim.DRKMEIV}}.
 #' @references 
-#' {Xia, J., Zhan, Z., Zhang, J. (2022) An anti-confounding method for estimating optimal regime in a survival context using instrumental variable. Under Review.}
+#' {Xia, J., Zhan, Z., Zhang, J. (2022) Estimating optimal treatment regime in survival contexts using an instrumental variable. Under Review.}
 Fprep.DRKMEIV <- function(datalist, ps, t0){
   # extract variable from list
   z=datalist$z

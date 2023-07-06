@@ -2,7 +2,7 @@
 #' 
 #' @title The (S)AIWKME estimator.
 #' @param eta The parameters of the regime.
-#' @param datalist A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.
+#' @param datalist A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}. Notice that all the data in the datalist should be ordered by observed time.
 #' @param ps A list including the probability of receiving treatment given baseline covariates named \code{fal}. \code{\link[otrKM]{Fps.AIWKME}} can produce \code{ps} by positing logistic model.
 #' @param prep A list including the augmented terms in the numerator with treatment all to 1 named \code{gamma.num.1} and all to 0 named \code{gamma.num.0} and in the denominator with treatment all to 1 named \code{gamma.den.1} and all to 0 \code{named gamma.den.0}; \code{gamma.num.1} and the others are matrix with ordered observed time as rows and patients as columns. \code{\link[otrKM]{Fprep.AIWKME}} can produce \code{prep} by positing Cox proportional hazards model.
 #' @param t0 A predetermined time. 
@@ -22,6 +22,7 @@
 #' @examples
 #' # load data
 #' data(simulation)
+#' simulation=simulation[order(simulation$Survival),]
 #' 
 #' # convert the data into a datalist
 #' datalist=list(z=simulation$Instrument,a=simulation$Treatment,

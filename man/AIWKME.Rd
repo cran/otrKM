@@ -9,7 +9,7 @@ AIWKME(eta, datalist, ps, prep, t0, smooth = TRUE)
 \arguments{
 \item{eta}{The parameters of the regime.}
 
-\item{datalist}{A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.}
+\item{datalist}{A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}. Notice that all the data in the datalist should be ordered by observed time.}
 
 \item{ps}{A list including the probability of receiving treatment given baseline covariates named \code{fal}. \code{\link[otrKM]{Fps.AIWKME}} can produce \code{ps} by positing logistic model.}
 
@@ -31,6 +31,7 @@ More details can be found in references.
 \examples{
 # load data
 data(simulation)
+simulation=simulation[order(simulation$Survival),]
 
 # convert the data into a datalist
 datalist=list(z=simulation$Instrument,a=simulation$Treatment,

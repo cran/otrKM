@@ -7,7 +7,7 @@
 Fprep.AIWKME(datalist, t0)
 }
 \arguments{
-\item{datalist}{A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.}
+\item{datalist}{A list used to calculate the (S)AIWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}. Notice that all the data in the datalist should be ordered by observed time.}
 
 \item{t0}{A predetermined t.}
 }

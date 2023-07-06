@@ -43,5 +43,5 @@ ps=Fps.IWKMEIV(datalist, t0)
 Genetic.optim.IWKMEIV(datalist, ps, t0, smooth=TRUE)
 }
 \references{
-{Xia, J., Zhan, Z., Zhang, J. (2022) An anti-confounding method for estimating optimal regime in a survival context using instrumental variable. Under Review.}
+{Xia, J., Zhan, Z., Zhang, J. (2022) Estimating optimal treatment regime in survival contexts using an instrumental variable. Under Review.}
 }

@@ -7,7 +7,7 @@
 Fps.IWKME(datalist)
 }
 \arguments{
-\item{datalist}{A list used to calculate the (S)IWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}.}
+\item{datalist}{A list used to calculate the (S)IWKME estimator including treatment named \code{a}, observed time named \code{obs.t}, censoring indicator (0, censored) named \code{delta}, and baseline covariates used to assign treatment named \code{l}. Notice that all the data in the datalist should be ordered by observed time.}
 }
 \value{
 A list including the probability of receiving treatment given baseline covariates named \code{fal}.
